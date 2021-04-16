@@ -72,13 +72,11 @@
 			<b>Data:</b> <span id="outputData"></span>
 		</div>
 
-	<video></video>
-
 </div>
 
 <script type="text/javascript">
 
-    /*var qrcode = window.qrcode;
+    var qrcode = window.qrcode;
 
     const video = document.createElement("video");
     const canvasElement = document.getElementById("qr-canvas");
@@ -147,27 +145,6 @@
         } catch (e) {
             setTimeout(scan, 1000);
         }
-    }*/
-
-    navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
-        navigator.mediaDevices.webkitGetUserMedia ||
-        navigator.mediaDevices.mozGetUserMedia;
-
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
-            function(stream) {
-                var video = document.querySelector('video');
-                video.src = window.URL.createObjectURL(stream);
-                video.onloadedmetadata = function(e) {
-                    video.play();
-                };
-            },
-            function(err) {
-                console.log("The following error occured: " + err.name);
-            }
-        );
-    } else {
-        console.log("getUserMedia not supported");
     }
 
 </script>
