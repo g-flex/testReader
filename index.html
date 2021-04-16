@@ -146,9 +146,9 @@
         }
     }*/
 
-    navigator.getUserMedia = navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia;
+    navigator.getUserMedia = navigator.mediaDevices.getUserMedia ||
+        navigator.mediaDevices.webkitGetUserMedia ||
+        navigator.mediaDevices.mozGetUserMedia;
 
     if (navigator.getUserMedia) {
         navigator.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
