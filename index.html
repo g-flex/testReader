@@ -106,14 +106,15 @@
 
 
     btnScanQR.onclick = () => {
-        console.log('merry');
+
         if(typeof navigator === 'undefined') {
-            console.log('nip navigator');
+            alert('nip navigator');
 		} else if(typeof navigator.mediaDevices === 'undefined') {
-            console.log('nip mediadevices');
+            alert('nip mediadevices');
 		} else if(typeof navigator.mediaDevices.getUserMedia === 'undefined') {
-            console.log('nip getUserMedia');
+	   		alert('nip getUserMedia');
 		} else {
+            alert('all ok');
             navigator.mediaDevices
                 .getUserMedia({ video: { facingMode: "environment" } })
                 .then(function(stream) {
