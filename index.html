@@ -89,6 +89,7 @@
 
     qrcode.callback = (res) => {
         if (res) {
+            console.log('maffa: ', res);
             outputData.innerText = res;
             scanning = false;
 
@@ -104,7 +105,7 @@
 
 
     btnScanQR.onclick = () => {
-        console.log('merry');
+        console.log('fsaasfasfaasfd');
         if(typeof navigator === 'undefined') {
             console.log('nip navigator');
 		} else if(typeof navigator.mediaDevices === 'undefined') {
