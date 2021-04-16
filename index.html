@@ -59,7 +59,7 @@
 	</style>
 </head>
 <body>
-<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js">
+<!--<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js">-->
 </script>
 <div id="container">
 	<h1>QR Code Scanner</h1>
@@ -75,7 +75,7 @@
 
 <script type="text/javascript">
 
-    var qrcode = window.qrcode;
+    /*var qrcode = window.qrcode;
 
     const video = document.createElement("video");
     const canvasElement = document.getElementById("qr-canvas");
@@ -105,7 +105,7 @@
 
 
     btnScanQR.onclick = () => {
-        console.log('adssssssss');
+        console.log('merry');
         if(typeof navigator === 'undefined') {
             console.log('nip navigator');
 		} else if(typeof navigator.mediaDevices === 'undefined') {
@@ -144,6 +144,27 @@
         } catch (e) {
             setTimeout(scan, 1000);
         }
+    }*/
+
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia;
+
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
+            function(stream) {
+                var video = document.querySelector('video');
+                video.src = window.URL.createObjectURL(stream);
+                video.onloadedmetadata = function(e) {
+                    video.play();
+                };
+            },
+            function(err) {
+                console.log("The following error occured: " + err.name);
+            }
+        );
+    } else {
+        console.log("getUserMedia not supported");
     }
 
 </script>
