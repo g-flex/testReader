@@ -146,12 +146,12 @@
         }
     }*/
 
-    navigator.getUserMedia = navigator.mediaDevices.getUserMedia ||
+    navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
         navigator.mediaDevices.webkitGetUserMedia ||
         navigator.mediaDevices.mozGetUserMedia;
 
-    if (navigator.getUserMedia) {
-        navigator.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
             function(stream) {
                 var video = document.querySelector('video');
                 video.src = window.URL.createObjectURL(stream);
