@@ -55,7 +55,8 @@
         lastWasError = false;
         logs.innerHTML += "<br>"+qrCodeMessage;
         html5QrCode.stop().then(ignore => {
-            // QR Code scanning is stopped.
+            html5QrCode.clear();
+            alert('cleared. code found: '+qrCodeMessage);
         }).catch(err => {
             alert('stopping scan not successful');
         });
