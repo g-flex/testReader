@@ -16,7 +16,7 @@
 
 
 
-
+<!-- https://gs1it.org/assistenza/standard-specifiche/simbologie-codici-a-barre/#gs1-datamatrix -->
 
 <script type="text/javascript">
 	let lastWasError = false;
@@ -42,11 +42,22 @@
         "reader", { fps: 10, qrbox: 250 });
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);*/
 
-    const configCodeReader = { fps: 10, qrbox: 250 };
+    Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+            console.log('init successful');
+        } else {
+            console.log('init Error');
+		}
+    }).catch(err => {
+        alert('init error: '+err);
+        fileInputListener();
+    });
+
     const inputCodeReadingSuccess = qrCodeMessage => {
         lastWasError = false;
         logs.innerHTML += "<br>"+qrCodeMessage;
     };
+
     const codeReadingSuccess = qrCodeMessage => {
         lastWasError = false;
         logs.innerHTML += "<br>"+qrCodeMessage;
@@ -63,6 +74,7 @@
         lastWasError = true;
         console.log('error reading: ' + qrCodeMessage);
     };
+
     const fileInputListener = () => {
         fileinput.addEventListener('change', e => {
             if (e.target.files.length === 0) { return; }
@@ -71,20 +83,11 @@
                 .then(inputCodeReadingSuccess)
                 .catch(codeReadingError);
         });
-    }
+	}
 
-    Html5Qrcode.getCameras().then(devices => {
-        if (devices && devices.length) {
-            const html5QrCode = new Html5Qrcode("reader");
-            html5QrCode.start({ facingMode: "environment" }, configCodeReader, codeReadingSuccess, codeReadingError);
-            console.log('init successful');
-        }
-    }).catch(err => {
-        alert('init error: '+err);
-        const html5QrCode = new Html5Qrcode("reader");
-        fileInputListener();
-    });
-
+    const configCodeReader = { fps: 10, qrbox: 250 };
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start({ facingMode: "environment" }, configCodeReader, codeReadingSuccess, codeReadingError);
 </script>
 
 </body>
