@@ -22,7 +22,7 @@
 	let lastWasError = false;
 	let logs = document.getElementById('logs');
 
-    function onScanSuccess(qrMessage) {
+    /*function onScanSuccess(qrMessage) {
         // handle the scanned code as you like
         // alert(`QR matched = ${qrMessage}`);
         lastWasError = false;
@@ -31,17 +31,40 @@
 
     function onScanFailure(error) {
         // handle scan failure, usually better to ignore and keep scanning
-        //alert(`QR error = ${error}`);
+        // alert(`QR error = ${error}`);
         let phrase = lastWasError ? " . " : "<br> . ";
         logs.innerHTML += phrase;
         lastWasError = true;
     }
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", { fps: 10, qrbox: 250 }, /* verbose= */ true);
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        "reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);*/
 
+    Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+            console.log('init successful');
+        } else {
+            console.log('init Error');
+		}
+    }).catch(err => {
+        alert('init error: '+err);
+    });
 
+    const coderReadingSuccess = qrCodeMessage => {
+        lastWasError = false;
+        logs.innerHTML += "<br>"+qrCodeMessage;
+    };
+    const coderReadingError = qrCodeMessage => {
+        let phrase = lastWasError ? " . " : "<br> . ";
+        logs.innerHTML += phrase;
+        lastWasError = true;
+        console.log('error reading: ' + qrCodeMessage);
+    };
+
+    const configCodeReader = { fps: 10, qrbox: 250 };
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start({ facingMode: "environment" }, configCodeReader, coderReadingSuccess, coderReadingError);
 </script>
 
 </body>
