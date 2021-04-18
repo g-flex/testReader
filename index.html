@@ -9,7 +9,7 @@
 <body>
 
 <div id="reader" width="600px"></div>
-
+<input type="file" id="qr-input-file" accept="image/*">
 <p id="logs">
 	<b>LOGS</b>
 </p>
@@ -21,6 +21,7 @@
 <script type="text/javascript">
 	let lastWasError = false;
 	let logs = document.getElementById('logs');
+    let fileinput = document.getElementById('qr-input-file');
 
     /*function onScanSuccess(qrMessage) {
         // handle the scanned code as you like
@@ -49,6 +50,7 @@
 		}
     }).catch(err => {
         alert('init error: '+err);
+        fileInputListener();
     });
 
     const coderReadingSuccess = qrCodeMessage => {
@@ -67,6 +69,16 @@
         lastWasError = true;
         console.log('error reading: ' + qrCodeMessage);
     };
+
+    const fileInputListener = () => {
+        fileinput.addEventListener('change', e => {
+            if (e.target.files.length === 0) { return; }
+
+            html5QrCode.scanFile(e.target.files[0], true)
+                .then(coderReadingSuccess)
+                .catch(coderReadingError);
+        });
+	}
 
     const configCodeReader = { fps: 10, qrbox: 250 };
     const html5QrCode = new Html5Qrcode("reader");
