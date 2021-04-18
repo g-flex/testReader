@@ -31,7 +31,7 @@
 
     function onScanFailure(error) {
         // handle scan failure, usually better to ignore and keep scanning
-        alert(`QR error = ${error}`);
+        //alert(`QR error = ${error}`);
         let phrase = lastWasError ? " . " : "<br> . ";
         logs.innerHTML += phrase;
         lastWasError = true;
