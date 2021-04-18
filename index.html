@@ -54,6 +54,11 @@
     const coderReadingSuccess = qrCodeMessage => {
         lastWasError = false;
         logs.innerHTML += "<br>"+qrCodeMessage;
+        html5QrCode.stop().then(ignore => {
+            // QR Code scanning is stopped.
+        }).catch(err => {
+            alert('stopping scan not successful');
+        });
     };
     const coderReadingError = qrCodeMessage => {
         let phrase = lastWasError ? " . " : "<br> . ";
