@@ -53,7 +53,12 @@
         fileInputListener();
     });
 
-    const coderReadingSuccess = qrCodeMessage => {
+    const inputCodeReadingSuccess = qrCodeMessage => {
+        lastWasError = false;
+        logs.innerHTML += "<br>"+qrCodeMessage;
+    };
+
+    const codeReadingSuccess = qrCodeMessage => {
         lastWasError = false;
         logs.innerHTML += "<br>"+qrCodeMessage;
         html5QrCode.stop().then(ignore => {
@@ -63,7 +68,7 @@
             alert('stopping scan not successful');
         });
     };
-    const coderReadingError = qrCodeMessage => {
+    const codeReadingError = qrCodeMessage => {
         let phrase = lastWasError ? " . " : "<br> . ";
         logs.innerHTML += phrase;
         lastWasError = true;
@@ -75,14 +80,14 @@
             if (e.target.files.length === 0) { return; }
 
             html5QrCode.scanFile(e.target.files[0], true)
-                .then(coderReadingSuccess)
-                .catch(coderReadingError);
+                .then(inputCodeReadingSuccess)
+                .catch(codeReadingError);
         });
 	}
 
     const configCodeReader = { fps: 10, qrbox: 250 };
     const html5QrCode = new Html5Qrcode("reader");
-    html5QrCode.start({ facingMode: "environment" }, configCodeReader, coderReadingSuccess, coderReadingError);
+    html5QrCode.start({ facingMode: "environment" }, configCodeReader, codeReadingSuccess, codeReadingError);
 </script>
 
 </body>
