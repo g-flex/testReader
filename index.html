@@ -10,22 +10,31 @@
 
 <div id="reader" width="600px"></div>
 
-
+<p id="logs">
+	<b>LOGS</b>
+</p>
 
 
 
 
 
 <script type="text/javascript">
-	
+	let lastWasError = false;
+	let logs = document.getElementById('logs');
+
     function onScanSuccess(qrMessage) {
         // handle the scanned code as you like
-        alert(`QR matched = ${qrMessage}`);
+        // alert(`QR matched = ${qrMessage}`);
+        lastWasError = false;
+		logs.innerHTML += "<br>"+qrMessage;
     }
 
     function onScanFailure(error) {
         // handle scan failure, usually better to ignore and keep scanning
         alert(`QR error = ${error}`);
+        let phrase = lastWasError ? " . " : "<br> . ";
+        logs.innerHTML += phrase;
+        lastWasError = true;
     }
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
