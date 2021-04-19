@@ -9,7 +9,7 @@
 <body>
 
 <div id="reader" width="600px"></div>
-<input type="file" id="qr-input-file" accept="image/*">
+<input style="display: none;" type="file" id="qr-input-file" accept="image/*">
 <p id="logs">
 	<b>LOGS</b>
 </p>
@@ -76,6 +76,7 @@
     };
 
     const fileInputListener = () => {
+        fileinput.setAttribute('style', '');
         fileinput.addEventListener('change', e => {
             if (e.target.files.length === 0) { return; }
 
